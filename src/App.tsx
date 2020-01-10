@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import './App.css';
 
+// import EmployerTableView from './components/employer/EmployerTableView';
 import EmployeeView from './components/employee/EmployeeView';
 
 class App extends Component<{}, {}> {
