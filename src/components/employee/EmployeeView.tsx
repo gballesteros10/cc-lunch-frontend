@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import EmployeeLunchDay from './EmployeeLunchDay';
 
 import { Days } from '../../lib/constants';
+import { LunchOrder } from '../../lib/interfaces';
+import { GetLunchOrderByUser, CreateLunchOrder } from '../../api/LunchOrderAPI';
 
 interface IState {
     selectedOptions: (string | null)[];
@@ -17,6 +19,28 @@ class EmployeeView extends Component<{}, IState> {
         this.state = {
             selectedOptions: [null, null, null, null, null, null, null]
         };
+    }
+
+    componentDidMount() {
+        // TESTING ONLY
+        // CreateLunchOrder({
+        //     user_id: "5e18a10138165d56baad012c",
+        //     option_id: "5e18ae80f6b54210ecf5349d",
+        //     day: 2
+        // });
+
+        GetLunchOrderByUser()
+            .then((lunchOrders: LunchOrder[]) => {
+                if (lunchOrders) {
+                    const fetchedSelected = [...this.state.selectedOptions];
+                    lunchOrders.forEach((order: LunchOrder) => {
+                        fetchedSelected[order.day] = order.option_id;
+                    });
+                    this.setState({
+                        selectedOptions: fetchedSelected
+                    });
+                }
+            });
     }
 
     setSelected = (day: number, option: string) => {

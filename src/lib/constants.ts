@@ -2,10 +2,10 @@ import { Option, OptionSummary } from './interfaces';
 
 export const Days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const Options: Option[] = [
-    { id: '0', name: 'Omni' },
-    { id: '1', name: 'Veggie' },
-    { id: '2', name: 'Gluten-Free' },
-    { id: '3', name: 'Nut-allergy' },
+    { id: '5e18ae80f6b54210ecf5349b', name: 'Omni' },
+    { id: '5e18ae80f6b54210ecf5349c', name: 'Veggie' },
+    { id: '5e18ae80f6b54210ecf5349d', name: 'Gluten-Free' },
+    { id: '5e18ae80f6b54210ecf5349e', name: 'Nut-allergy' },
 ]; //TODO: for improvement: move to db and add create lunch option feature
 
 //TODO:
@@ -41,3 +41,5 @@ export const Summary: OptionSummary[] = [
     { day: 6, option: '2', count: 1 },
     { day: 6, option: '3', count: 1 },
 ];
+
+export const UserID = '5e18a10138165d56baad012c';

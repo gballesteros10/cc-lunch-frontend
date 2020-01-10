@@ -1,0 +1,1 @@
+export const APIURI = `http://localhost:3001`;
