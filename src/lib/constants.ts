@@ -1,6 +1,15 @@
-import { Option, OptionSummary } from './interfaces';
+import { Option, OptionSummary, Day } from './interfaces';
 
-export const Days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const Days: Day[] = [
+    { id: 0, name: 'Sunday' },
+    { id: 1, name: 'Monday' },
+    { id: 2, name: 'Tuesday' },
+    { id: 3, name: 'Wednesday' },
+    { id: 4, name: 'Thursday' },
+    { id: 5, name: 'Friday' },
+    { id: 6, name: 'Saturday' },
+];
+
 export const Options: Option[] = [
     { id: '5e18ae80f6b54210ecf5349b', name: 'Omni' },
     { id: '5e18ae80f6b54210ecf5349c', name: 'Veggie' },

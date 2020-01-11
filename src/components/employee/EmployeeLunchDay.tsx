@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import EmployeeLunchOption from './EmployeeLunchOption';
 
-import { Days, Options } from '../../lib/constants';
+import { Options } from '../../lib/constants';
+import { Day } from '../../lib/interfaces';
 
 interface IProps {
-    day: number;
+    day: Day;
     selected: string | null;
     setSelected: (day: number, option: string) => void;
 }
@@ -15,13 +16,13 @@ class EmployeeLunchDay extends Component<IProps, {}> {
         return (
             <div className="card" style={{ margin: "30px" }}>
                 <div className="card-header">
-                    {Days[this.props.day]}
+                    {this.props.day.name}
                 </div>
                 <div className="card-body" style={{ display: "flex" }}>
                     {Options.map((option) =>
                         <EmployeeLunchOption
                             key={option.id}
-                            day={this.props.day}
+                            day={this.props.day.id}
                             option={option}
                             isSelected={option.id === this.props.selected}
                             setSelected={this.props.setSelected} />)}

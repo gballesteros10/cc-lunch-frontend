@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import EmployeeLunchDay from './EmployeeLunchDay';
 
-import { Days } from '../../lib/constants';
+import { Days, UserID } from '../../lib/constants';
 import { LunchOrder } from '../../lib/interfaces';
 import { GetLunchOrderByUser, CreateLunchOrder } from '../../api/LunchOrderAPI';
 
@@ -22,13 +22,6 @@ class EmployeeView extends Component<{}, IState> {
     }
 
     componentDidMount() {
-        // TESTING ONLY
-        // CreateLunchOrder({
-        //     user_id: "5e18a10138165d56baad012c",
-        //     option_id: "5e18ae80f6b54210ecf5349d",
-        //     day: 2
-        // });
-
         GetLunchOrderByUser()
             .then((lunchOrders: LunchOrder[]) => {
                 if (lunchOrders) {
@@ -52,17 +45,23 @@ class EmployeeView extends Component<{}, IState> {
     }
 
     saveChanges = () => {
-        //TODO: call api save
-        console.log(this.state.selectedOptions);
+        Days.forEach(day => {
+            console.log(this.state.selectedOptions[day.id]);
+            CreateLunchOrder({
+                user_id: UserID,
+                option_id: this.state.selectedOptions[day.id],
+                day: day.id
+            });
+        })
     }
 
     render() {
         return (
             <div>
-                {Days.map((day, index) =>
+                {Days.map((day) =>
                     <EmployeeLunchDay
-                        key={index} day={index}
-                        selected={this.state.selectedOptions[index]}
+                        key={day.id} day={day}
+                        selected={this.state.selectedOptions[day.id]}
                         setSelected={this.setSelected} />)}
 
                 <div className="footer fixed-bottom bg-dark" style={{ padding: "8px 15px", textAlign: "right" }}>

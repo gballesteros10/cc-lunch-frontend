@@ -3,6 +3,11 @@ export interface Option {
     name: string;
 };
 
+export interface Day {
+    id: number;
+    name: string;
+};
+
 export interface OptionSummary {
     option: string;
     day: number;
@@ -12,6 +17,6 @@ export interface OptionSummary {
 export interface LunchOrder {
     _id?: string;
     user_id: string;
-    option_id: string;
+    option_id: string | null;
     day: number;
 }
