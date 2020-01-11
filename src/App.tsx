@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import './App.css';
 
-// import EmployerTableView from './components/employer/EmployerTableView';
+import EmployerTableView from './components/employer/EmployerTableView';
 import EmployeeView from './components/employee/EmployeeView';
 
 class App extends Component<{}, {}> {
@@ -13,6 +13,7 @@ class App extends Component<{}, {}> {
           <span className="navbar-brand mb-0 h1">CC Employee Lunch</span>
         </nav>
         <EmployeeView />
+        <EmployerTableView />
       </div>
     );
   }

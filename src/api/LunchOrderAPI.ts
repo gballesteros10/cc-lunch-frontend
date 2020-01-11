@@ -4,6 +4,12 @@ import { LunchOrder } from '../lib/interfaces';
 
 const moduleName = "lunchorder";
 
+export const GetAllLunchOrders = () => {
+    return fetch(`${APIURI}/${moduleName}`)
+        .then(res => res.json())
+        .catch(console.log);
+};
+
 export const GetLunchOrderByUser = () => {
     return fetch(`${APIURI}/${moduleName}/${UserID}`)
         .then(res => res.json())

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 // import './App.css';
 
 import EmployeeLunchDay from './EmployeeLunchDay';
+import { GetLunchOrderByUser, CreateLunchOrder } from '../../api/LunchOrderAPI';
 
 import { Days, UserID } from '../../lib/constants';
 import { LunchOrder } from '../../lib/interfaces';
-import { GetLunchOrderByUser, CreateLunchOrder } from '../../api/LunchOrderAPI';
 
 interface IState {
     selectedOptions: (string | null)[];
