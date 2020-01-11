@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import EmployeeLunchDay from './EmployeeLunchDay';
 import { GetLunchOrderByUser, CreateLunchOrder } from '../../api/LunchOrderAPI';
 
-import { Days, UserID } from '../../lib/constants';
+import { Days } from '../../lib/constants';
 import { LunchOrder } from '../../lib/interfaces';
+import Navigation from '../Navigation';
 
 interface IState {
     selectedOptions: (string | null)[];
@@ -13,8 +14,8 @@ interface IState {
 
 class EmployeeView extends Component<{}, IState> {
 
-    constructor(props: any, context: any) {
-        super(props, context);
+    constructor(props: any) {
+        super(props);
 
         this.state = {
             selectedOptions: [null, null, null, null, null, null, null]
@@ -47,17 +48,17 @@ class EmployeeView extends Component<{}, IState> {
     saveChanges = () => {
         Days.forEach(day => {
             console.log(this.state.selectedOptions[day.id]);
-            CreateLunchOrder({
-                user_id: UserID,
-                option_id: this.state.selectedOptions[day.id],
-                day: day.id
-            });
+            CreateLunchOrder(
+                this.state.selectedOptions[day.id],
+                day.id
+            );
         })
     }
 
     render() {
         return (
             <div>
+                <Navigation />
                 {Days.map((day) =>
                     <EmployeeLunchDay
                         key={day.id} day={day}

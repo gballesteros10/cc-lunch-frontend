@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 // import './App.css';
 
-import EmployerTableView from './components/employer/EmployerTableView';
-import EmployeeView from './components/employee/EmployeeView';
+import UserLogin from './components/user/UserLogin';
+import Home from './components/Home';
 
 class App extends Component<{}, {}> {
 
   render() {
     return (
-      <div>
-        <nav className="navbar bg-dark text-white">
-          <span className="navbar-brand mb-0 h1">CC Employee Lunch</span>
-        </nav>
-        <EmployeeView />
-        <EmployerTableView />
-      </div>
+      <BrowserRouter>
+        <div>
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={UserLogin} />
+        </div>
+      </BrowserRouter>
     );
   }
 }

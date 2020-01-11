@@ -4,6 +4,7 @@ import { GetAllLunchOrders } from '../../api/LunchOrderAPI';
 
 import { Days, Options } from '../../lib/constants';
 import { OptionSummary, LunchOrder } from '../../lib/interfaces';
+import Navigation from '../Navigation';
 
 interface IState {
     summary: OptionSummary[];
@@ -48,32 +49,35 @@ class EmployerTableView extends Component<{}, IState> {
 
     render() {
         return (
-            <div style={{ padding: "30px" }}>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" />
-                            {Days.map(day => <th scope="col" key={day.id}>{day.name}</th>)}
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div>
+                <Navigation />
+                <div style={{ padding: "30px" }}>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" />
+                                {Days.map(day => <th scope="col" key={day.id}>{day.name}</th>)}
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        {Options.map(option => {
-                            const optionSummary = this.state.summary
-                                .filter(os => os.option === option.id)
-                                .sort((os1, os2) => os1.day - os2.day)
-                                .map(os => os.count);
+                            {Options.map(option => {
+                                const optionSummary = this.state.summary
+                                    .filter(os => os.option === option.id)
+                                    .sort((os1, os2) => os1.day - os2.day)
+                                    .map(os => os.count);
 
-                            console.log(optionSummary);
+                                console.log(optionSummary);
 
-                            return (<tr>
-                                <th scope="row">{option.name}</th>
-                                {Days.map(day => <td key={`${option.id}_${day.id}`}>{optionSummary[day.id]}</td>)}
-                            </tr>);
-                        }
-                        )}
-                    </tbody>
-                </table>
+                                return (<tr>
+                                    <th scope="row">{option.name}</th>
+                                    {Days.map(day => <td key={`${option.id}_${day.id}`}>{optionSummary[day.id]}</td>)}
+                                </tr>);
+                            }
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

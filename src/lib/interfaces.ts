@@ -20,3 +20,9 @@ export interface LunchOrder {
     option_id: string | null;
     day: number;
 }
+
+export interface User {
+    _id?: string;
+    username: string;
+    is_admin?: boolean;
+}

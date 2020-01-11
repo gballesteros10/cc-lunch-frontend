@@ -1,4 +1,4 @@
-import { Option, OptionSummary, Day } from './interfaces';
+import { Option, Day } from './interfaces';
 
 export const Days: Day[] = [
     { id: 0, name: 'Sunday' },
