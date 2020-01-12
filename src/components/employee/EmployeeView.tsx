@@ -25,7 +25,7 @@ class EmployeeView extends Component<{}, IState> {
     componentDidMount() {
         GetLunchOrderByUser()
             .then((lunchOrders: LunchOrder[]) => {
-                if (lunchOrders) {
+                if (Array.isArray(lunchOrders)) {
                     const fetchedSelected = [...this.state.selectedOptions];
                     lunchOrders.forEach((order: LunchOrder) => {
                         fetchedSelected[order.day] = order.option_id;

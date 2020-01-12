@@ -16,5 +16,3 @@ export const Options: Option[] = [
     { id: '5e18ae80f6b54210ecf5349d', name: 'Gluten-Free' },
     { id: '5e18ae80f6b54210ecf5349e', name: 'Nut-allergy' },
 ]; //TODO: for improvement: move to db and add create lunch option feature
-
-export const UserID = '5e18a10138165d56baad012a';

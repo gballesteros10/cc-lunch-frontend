@@ -35,12 +35,14 @@ class EmployerTableView extends Component<{}, IState> {
 
         Days.forEach(day => {
             Options.forEach(option => {
-                const count = lunchOrders.filter(lunchOrder => lunchOrder.day === day.id && lunchOrder.option_id === option.id).length;
-                optionSummary.push({
-                    option: option.id,
-                    day: day.id,
-                    count: count
-                });
+                if (Array.isArray(lunchOrders)) {
+                    const count = lunchOrders.filter(lunchOrder => lunchOrder.day === day.id && lunchOrder.option_id === option.id).length;
+                    optionSummary.push({
+                        option: option.id,
+                        day: day.id,
+                        count: count
+                    });
+                }
             });
         });
 

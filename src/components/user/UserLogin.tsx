@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { LoginUser, LogoutUser } from '../../api/UserAPI';
+import { User } from '../../lib/interfaces';
 
 interface IState {
+    loading: boolean;
     loginSuccessful: boolean;
+    showFailAlert: boolean;
 }
 
 class UserLogin extends Component<{}, IState> {
@@ -15,7 +18,9 @@ class UserLogin extends Component<{}, IState> {
         super(props);
 
         this.state = {
-            loginSuccessful: false
+            loginSuccessful: false,
+            showFailAlert: false,
+            loading: false
         };
     }
 
@@ -23,10 +28,27 @@ class UserLogin extends Component<{}, IState> {
         LogoutUser();
     }
 
+    closeAlert = () => {
+        this.setState({ showFailAlert: false });
+    }
+
     onSubmit = () => {
+        this.setState({ loading: true });
         if (this.username && this.username.current && this.password && this.password.current) {
-            LoginUser(this.username.current.value, this.password.current.value);
-            this.setState({ loginSuccessful: true });
+            LoginUser(this.username.current.value, this.password.current.value)
+                .then((user: User) => {
+                    if (user && user._id) {
+                        this.setState({
+                            loginSuccessful: true,
+                            loading: false
+                        })
+                    } else {
+                        this.setState({
+                            showFailAlert: true,
+                            loading: false
+                        })
+                    }
+                })
         }
     }
 
@@ -49,7 +71,17 @@ class UserLogin extends Component<{}, IState> {
                             <label>Password</label>
                             <input type="password" className="form-control" ref={this.password} />
                         </div>
-                        <button className="btn btn-dark" onClick={this.onSubmit} >Submit</button>
+                        {
+                            this.state.showFailAlert && (
+                                <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Login Failed</strong> Invalid username and/or password.
+                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.closeAlert}>
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            )
+                        }
+                        <button className="btn btn-dark" onClick={this.onSubmit} disabled={this.state.loading}>Submit</button>
                     </div>
                 </div>
             </div>

@@ -1,16 +1,29 @@
+import { APIURI } from '../lib/config'
 import { User } from "../lib/interfaces";
-import { UserID } from "../lib/constants";
 
 export const LoginUser = (username: string, password: string) => {
     const user: User = {
-        username
+        username,
+        password
     };
 
-    //TODO: this is hardcoded. fetch from backend
-    user._id = UserID;
-    user.is_admin = username === 'admin';
-
-    localStorage.setItem('user', JSON.stringify(user));
+    return fetch(`${APIURI}/login`, {
+        method: 'POST',
+        headers: new Headers(),
+        body: JSON.stringify(user)
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error('Invalid username/password');
+            }
+        })
+        .then(user => {
+            localStorage.setItem('user', JSON.stringify(user))
+            return user;
+        })
+        .catch(console.log);
 };
 
 export const GetUser = () => {
@@ -19,6 +32,11 @@ export const GetUser = () => {
         var user: User = JSON.parse(userJSON);
         return user;
     }
+}
+
+export const GetUserID = () => {
+    const user = GetUser();
+    return user ? (user._id ? user._id : '') : '';
 }
 
 export const LogoutUser = () => {

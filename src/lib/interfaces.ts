@@ -24,5 +24,6 @@ export interface LunchOrder {
 export interface User {
     _id?: string;
     username: string;
+    password: string;
     is_admin?: boolean;
 }

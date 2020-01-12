@@ -1,9 +1,6 @@
 import { APIURI } from '../lib/config'
 import { LunchOrder } from '../lib/interfaces';
-import { GetUser } from './UserAPI';
-
-const user = GetUser();
-const userID = user ? (user._id ? user._id : '') : ''; //TODO: fix this
+import { GetUserID } from './UserAPI';
 
 const moduleName = "lunchorder";
 
@@ -14,7 +11,7 @@ export const GetAllLunchOrders = () => { //TODO: pass user to authenticate emplo
 };
 
 export const GetLunchOrderByUser = () => {
-    return fetch(`${APIURI}/${moduleName}/${userID}`)
+    return fetch(`${APIURI}/${moduleName}/${GetUserID()}`)
         .then(res => res.json())
         .catch(console.log);
 };
@@ -23,7 +20,7 @@ export const CreateLunchOrder = (option_id: string | null, day: number) => {
     const lunchOrder: LunchOrder = {
         option_id,
         day,
-        user_id: userID
+        user_id: GetUserID()
     }
 
     fetch(`${APIURI}/${moduleName}`, {
