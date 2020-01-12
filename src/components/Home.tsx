@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import EmployeeView from './employee/EmployeeView';
 import EmployerTableView from './employer/EmployerTableView';
+import Loader from './Loader';
 import { IsUserAdmin } from '../api/UserAPI';
 
 interface IState {
@@ -24,14 +25,7 @@ class Home extends Component<{}, IState> {
 
     render() {
         if (this.state.isAdmin === undefined) {
-            return (
-                // TODO: move to new file Loader.tsx
-                <div className="d-flex justify-content-center" style={{ marginTop: "30px" }}>
-                    <div className="spinner-border" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
-            );
+            return <Loader />;
         }
 
         if (this.state.isAdmin) {

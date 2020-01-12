@@ -71,7 +71,7 @@ class EmployerTableView extends Component<{}, IState> {
 
                                 console.log(optionSummary);
 
-                                return (<tr>
+                                return (<tr key={option.id}>
                                     <th scope="row">{option.name}</th>
                                     {Days.map(day => <td key={`${option.id}_${day.id}`}>{optionSummary[day.id]}</td>)}
                                 </tr>);

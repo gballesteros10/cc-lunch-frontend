@@ -10,6 +10,8 @@ import Navigation from '../Navigation';
 
 interface IState {
     selectedOptions: (string | null)[];
+    isSaved: boolean;
+    isSaving: boolean;
 }
 
 class EmployeeView extends Component<{}, IState> {
@@ -18,7 +20,9 @@ class EmployeeView extends Component<{}, IState> {
         super(props);
 
         this.state = {
-            selectedOptions: [null, null, null, null, null, null, null]
+            selectedOptions: [null, null, null, null, null, null, null],
+            isSaved: false,
+            isSaving: false
         };
     }
 
@@ -41,18 +45,24 @@ class EmployeeView extends Component<{}, IState> {
         const newSelected = [...this.state.selectedOptions];
         newSelected[day] = newSelected[day] !== option ? option : null;
         this.setState({
-            selectedOptions: newSelected
+            selectedOptions: newSelected,
+            isSaved: false
         });
     }
 
     saveChanges = () => {
+        this.setState({ isSaving: true });
+        const savePromises: Promise<any>[] = [];
         Days.forEach(day => {
-            console.log(this.state.selectedOptions[day.id]);
-            CreateLunchOrder(
-                this.state.selectedOptions[day.id],
-                day.id
+            savePromises.push(
+                CreateLunchOrder(
+                    this.state.selectedOptions[day.id],
+                    day.id
+                )
             );
-        })
+        });
+
+        Promise.all(savePromises).then(() => this.setState({ isSaved: true, isSaving: false }))
     }
 
     render() {
@@ -66,7 +76,17 @@ class EmployeeView extends Component<{}, IState> {
                         setSelected={this.setSelected} />)}
 
                 <div className="footer fixed-bottom bg-dark" style={{ padding: "8px 15px", textAlign: "right" }}>
-                    <button className="btn btn-light" onClick={this.saveChanges}>Save Changes</button>
+                    {this.state.isSaved && (
+                        <h5 style={{ display: "inline", marginRight: "20px" }}>
+                            <span className="badge badge-success text-white" data-toggle="tooltip">Changes Saved</span>
+                        </h5>
+                    )}
+
+                    <button className="btn btn-light"
+                        onClick={this.saveChanges}
+                        disabled={this.state.isSaving}>
+                        Save Changes
+                    </button>
                 </div>
             </div>
         );

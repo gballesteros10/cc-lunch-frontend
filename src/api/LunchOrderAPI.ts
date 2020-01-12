@@ -23,7 +23,7 @@ export const CreateLunchOrder = (option_id: string | null, day: number) => {
         user_id: GetUserID()
     }
 
-    fetch(`${APIURI}/${moduleName}`, {
+    return fetch(`${APIURI}/${moduleName}`, {
         method: 'POST',
         headers: new Headers(),
         body: JSON.stringify(lunchOrder)

@@ -16,7 +16,7 @@ class EmployeeLunchOption extends Component<IProps, {}> {
         return (
             <div className={`card ${this.props.isSelected ? ' text-white bg-secondary' : ''}`} style={{ width: "8rem", margin: "0px 5px", cursor: "pointer" }}
                 onClick={() => this.props.setSelected(this.props.day, this.props.option.id)}>
-                <img className="card-img-top" src={LunchLogo} alt="Card image cap" />
+                <img className="card-img-top" src={LunchLogo} alt="Upload lunch option image..." />
                 <div className="card-body">
                     <p className="card-text">{this.props.option.name}</p>
                 </div>
