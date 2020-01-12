@@ -3,47 +3,37 @@ import React, { Component } from 'react';
 import EmployeeView from './employee/EmployeeView';
 import EmployerTableView from './employer/EmployerTableView';
 import Loader from './Loader';
-import { GetUser } from '../api/UserAPI';
-import { User } from '../lib/interfaces';
-import UserLogin from './user/UserLogin';
+import { IsUserAdmin } from '../api/UserAPI';
 
 interface IState {
-    user?: User;
-    isDoneFetching: boolean;
+    isAdmin?: boolean;
 }
 
 class Home extends Component<{}, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            user: undefined,
-            isDoneFetching: false
+            isAdmin: undefined
         }
     }
 
     componentWillMount() {
         // I know, ugly workaround
         // render gets executed first before localStorage.setItem
-        setTimeout(() => {
-            this.setState({
-                user: GetUser(),
-                isDoneFetching: true
-            })
-        }, 1000)
+        setTimeout(() => this.setState({ isAdmin: IsUserAdmin() }), 1000)
     }
 
     render() {
-        if (this.state.user) {
-            if (this.state.user.is_admin)
-                return <EmployerTableView />
-            return <EmployeeView />
+        if (this.state.isAdmin === undefined) {
+            return <Loader />;
         }
 
-        if (this.state.isDoneFetching) {
-            return <UserLogin />;
+        if (this.state.isAdmin) {
+            return <EmployerTableView />;
         }
 
-        return <Loader />;
+        return <EmployeeView />;
+
     }
 }
 
