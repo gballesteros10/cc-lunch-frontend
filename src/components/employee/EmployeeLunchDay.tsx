@@ -18,7 +18,7 @@ class EmployeeLunchDay extends Component<IProps, {}> {
                 <div className="card-header">
                     {this.props.day.name}
                 </div>
-                <div className="card-body" style={{ display: "flex" }}>
+                <div className="card-body d-flex flex-wrap">
                     {Options.map((option) =>
                         <EmployeeLunchOption
                             key={option.id}

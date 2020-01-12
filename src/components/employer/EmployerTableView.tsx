@@ -53,7 +53,7 @@ class EmployerTableView extends Component<{}, IState> {
         return (
             <div>
                 <Navigation />
-                <div style={{ padding: "30px" }}>
+                <div className="table-responsive-md" style={{ padding: "30px" }}>
                     <table className="table">
                         <thead>
                             <tr>
